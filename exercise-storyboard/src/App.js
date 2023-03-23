@@ -3,56 +3,76 @@ import './App.css';
 
 // Import React and Material UI components
 import React from 'react';
+import styled from 'styled-components/macro';
+
+// Import the theming variables
+import { theme } from './frontend/theme';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+// Create a custom card component using the theming variables and styled-components
+const CustomCard = styled(Card)`
+  width: 18rem;
+  box-shadow: ${theme.boxShadowBase};
+`;
 
-// Define the theming variables
-const theme = {
-  colorPrimary: '#007bff', // a crisp blue color
-  colorSecondary: '#f0f0f0', // a light gray color
-  colorAccent: '#ff9900', // a hip orange color
-  fontFamilyBase: '"Roboto", sans-serif', // a modern font
-  fontSizeBase: '1rem', // a thin font size
-  spacingBase: '0.5rem', // a small spacing unit
-  breakpointSm: '576px', // a breakpoint for small screens
-  boxShadowBase: '0 2px 4px rgba(0,0,0,0.1)', // a subtle shadow
-  boxShadowHover: '0 4px 8px rgba(0,0,0,0.2)', // a stronger shadow on hover
-  paddingBase: '1rem', // a base padding for card content
-};
+const CustomCardActionArea = styled(CardActionArea)`
+  &:hover {
+    box-shadow: ${theme.boxShadowHover};
+  }
+`;
 
-// Create a custom card component using the theming variables
-const CustomCard = ({ image, title, text }) => {
-  return (
-    <Card style={{ width: '18rem', boxShadow: theme.boxShadowBase }}>
-      <CardActionArea>
-        <CardMedia style={{ height: '10rem' }} image={image} title={title} />
-        <CardContent style={{ padding: theme.paddingBase }}>
-          <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: theme.fontFamilyBase }}>
-            {title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" style={{ fontFamily: theme.fontFamilyBase }}>
-            {text}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions style={{ padding: theme.paddingBase }}>
-        <Button size="small" color="primary" style={{ color: theme.colorPrimary }}>
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-  );
-};
+const CustomCardMedia = styled(CardMedia)`
+  height: 10rem;
+`;
+
+const CustomCardContent = styled(CardContent)`
+  padding: ${theme.paddingBase};
+`;
+
+const CustomCardTitle = styled(Typography).attrs({
+  gutterBottom: true,
+  variant: 'h5',
+  component: 'h2',
+})`
+  font-family: ${theme.fontFamilyBase};
+`;
+
+const CustomCardText = styled(Typography).attrs({
+  variant: 'body2',
+  color: 'textSecondary',
+  component: 'p',
+})`
+  font-family: ${theme.fontFamilyBase};
+`;
+
+const CustomCardActions = styled(CardActions)`
+  padding: ${theme.paddingBase};
+`;
+
+const CustomButton = styled(Button).attrs({
+  size: 'small',
+})`
+  color: ${theme.colorPrimary};
+`;
 
 
 function App() {
   return (
     <div className="App">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <CustomCard
-        image="https://source.unsplash.com/random"
-        title="Sample Card"
-        text="This is a sample card component using React and Material UI with custom theming variables."
-      />
+      <CustomCard>
+        <CustomCardActionArea>
+          <CustomCardMedia image="https://source.unsplash.com/random" title="Sample Card" />
+          <CustomCardContent>
+            <CustomCardTitle>Sample Card</CustomCardTitle>
+            <CustomCardText>
+              This is a sample card component using React and styled-components with custom theming variables.
+            </CustomCardText>
+          </CustomCardContent>
+        </CustomCardActionArea>
+        <CustomCardActions>
+          <CustomButton>Learn More</CustomButton>
+        </CustomCardActions>
+      </CustomCard>
     </div>
     </div>
   );
